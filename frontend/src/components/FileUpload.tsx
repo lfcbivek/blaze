@@ -20,7 +20,7 @@ export default function FileUpload() {
             <Card>
                 <CardContent className="flex flex-col items-center justify-center min-h-[400px]">
                     <div>
-                        <ArrowUpTrayIcon className="w-40 h-40 text-white" />
+                        <ArrowUpTrayIcon className="w-40 h-40" />
                     </div>
                     <FileUploadButton />
                 </CardContent>

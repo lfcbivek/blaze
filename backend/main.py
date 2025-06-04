@@ -6,8 +6,10 @@ import csv
 
 
 from utils import get_columns_sum
+from core.middleware import add_cors_middleware
 
 app = FastAPI()
+add_cors_middleware(app)
 
 @app.get("/")
 async def get_csv_headers(file: UploadFile= File(...)):
@@ -33,4 +35,20 @@ async def get_csv_headers(file: UploadFile= File(...)):
     headers = df.columns.tolist()
     res['has_headers'] = True
     res['headers'] = headers
+    return res
+
+@app.get("/get-kpi-data")
+def get_kpi_data():
+    res = {
+        "totals" : [
+            {
+                'Title': 'Total Purchase',
+                'Total': 1000,
+            },
+            {
+                'Title': 'Total Cost',
+                'Total': 9000
+            }
+        ]
+    }
     return res

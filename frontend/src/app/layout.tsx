@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import "./globals.css";
+import "./globals.scss";
 import Loader from "@/components/Loader";
 
 // app/layout.tsx

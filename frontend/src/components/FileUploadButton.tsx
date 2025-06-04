@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import { useRouter } from 'next/navigation';
 import {
     Card,
     CardAction,
@@ -14,12 +15,18 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { useLoaderStore } from "@/store/loaderStore";
+import { Router } from "../../node_modules/lucide-react/dist/lucide-react";
+import { fetchKpis } from "@/api/kpi";
+import { appStore } from '@/store/appStore';
 
 export default function FileUploadButton() {
+    const router = useRouter();
+
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { showLoader, hideLoader } = useLoaderStore();
     const [dragging, setDragging] = useState(false);
-
+    const { setKpiData } = appStore();
+    
     const onButtonClick = () => {
         fileInputRef.current?.click();
     };
@@ -31,8 +38,12 @@ export default function FileUploadButton() {
             // TODO: handle files here, e.g., upload or process
         }
         showLoader();
-        await new Promise((res) => setTimeout(res, 2000)); // simulate delay
+        const response = await fetchKpis();
+        setKpiData(response);
+        
         hideLoader();
+        router.push("/dashboard");
+        
     };
 
     const handleDragOver = (e: React.DragEvent) => {
@@ -59,8 +70,8 @@ export default function FileUploadButton() {
     return (
         <div className="pt-10 w-100">
             <Card
-                className={`border-2 rounded-md transition-colors duration-300
-                    ${dragging ? "border-blue-500" : "border-gray-400"}`}
+                className={`rounded-md transition-colors duration-300
+                    ${dragging ? "border-blue-500" : ""}`}
             >
                 <input
                     type="file"
@@ -78,7 +89,7 @@ export default function FileUploadButton() {
                 >
                     <h3 className={dragging ? "text-blue-600" : ""}> Drag and Drop your files here, or </h3>
                     <Button 
-                        className="cursor-pointer bg-white text-black hover:bg-white" 
+                        className="cursor-pointer border-black" 
                         onClick={(e) => {
                             e.stopPropagation(); // prevent triggering CardContent onClick twice
                             onButtonClick();
