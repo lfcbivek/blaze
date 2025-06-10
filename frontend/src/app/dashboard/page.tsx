@@ -1,55 +1,22 @@
 "use client"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-
+import DashboardCards from "@/components/DashboardCards";
 import { AppSidebar } from "@/components/AppSidebar";
-import { appStore } from "@/store/appStore";
+import { useAppStore } from "@/store/appStore";
 
-import {
-    Card,
-    CardAction,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
 
 
 import './page.scss';
 export default function DashboardPage() {
-    const { kpiData } = appStore();
-    console.log("kpi")
-    console.log(kpiData);
-
+    const { kpiData, file } = useAppStore();
     return (
         <SidebarProvider>
             <AppSidebar />
                 <SidebarTrigger />
                 <div className="dashboard-page">
-                    <Card className="w-70 h-40 card">
-                        <CardHeader>
-                            <CardTitle>Card Title</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>Card Content</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="w-70 h-40 card">
-                        <CardHeader>
-                            <CardTitle>Card Title</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>Card Content</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="w-70 h-40 card">
-                        <CardHeader>
-                            <CardTitle>Card Title</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>Card Content</p>
-                        </CardContent>
-                    </Card>
+                    <DashboardCards 
+                        kpiData={kpiData}
+                    />
                 </div>
         </SidebarProvider>
     );

@@ -16,22 +16,31 @@ def is_mostly_string(series, threshold=0.8):
 
 # Takes in the list of columns and returns sum of numeric columns
 def get_columns_sum(df, columns):
-    column_sums = {}
+    column_stats = {}
     numeric_columns = []
-    print(columns)
+    data = {}
     for column in columns:
         is_column_string = is_mostly_string(df[column])
         if not is_column_string:
             cleaned_column = clean_numeric_column(df[column])
             if cleaned_column.notna().sum() > 0:
                 col_sum = cleaned_column.sum()
-                column_sums[column] = float(col_sum)
+                col_avg = cleaned_column.mean()
+                # Store some basic KPIs
+                column_stats[column] = {
+                    "title": str(column),
+                    "sum": float(col_sum),
+                    "average": float(col_avg),
+                }
+                # Raw data to be used to produce graphs
+                data[column] = cleaned_column.dropna().tolist()
                 numeric_columns.append(column)
         else:
             continue
     
     return {
         'numeric_columns': numeric_columns,
-        'column_sums': column_sums
+        'summary': column_stats,
+        'data': data
     }
 

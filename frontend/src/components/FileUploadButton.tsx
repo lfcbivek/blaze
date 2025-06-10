@@ -16,8 +16,8 @@ import { Button } from "@/components/ui/button";
 
 import { useLoaderStore } from "@/store/loaderStore";
 import { Router } from "../../node_modules/lucide-react/dist/lucide-react";
-import { fetchKpis } from "@/api/kpi";
-import { appStore } from '@/store/appStore';
+import { fetchFileAnalyzer, fetchKpis } from "@/api/kpi";
+import { useAppStore } from '@/store/appStore';
 
 export default function FileUploadButton() {
     const router = useRouter();
@@ -25,7 +25,7 @@ export default function FileUploadButton() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { showLoader, hideLoader } = useLoaderStore();
     const [dragging, setDragging] = useState(false);
-    const { setKpiData } = appStore();
+    const { setKpiData, setFile } = useAppStore();
     
     const onButtonClick = () => {
         fileInputRef.current?.click();
@@ -34,15 +34,17 @@ export default function FileUploadButton() {
     const onFileChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files && files.length > 0) {
-            console.log("Files selected:", files);
+            showLoader();
             // TODO: handle files here, e.g., upload or process
+            const analyzedData = await fetchFileAnalyzer(files);
+            const response = await fetchKpis();
+
+            setFile(files[0]);
+            setKpiData(response);
+            
+            hideLoader();
+            router.push("/dashboard");
         }
-        showLoader();
-        const response = await fetchKpis();
-        setKpiData(response);
-        
-        hideLoader();
-        router.push("/dashboard");
         
     };
 

@@ -11,7 +11,7 @@ from core.middleware import add_cors_middleware
 app = FastAPI()
 add_cors_middleware(app)
 
-@app.get("/")
+@app.post("/analyze-file")
 async def get_csv_headers(file: UploadFile= File(...)):
     content = await file.read()
 
@@ -34,7 +34,7 @@ async def get_csv_headers(file: UploadFile= File(...)):
     # Get headers
     headers = df.columns.tolist()
     res['has_headers'] = True
-    res['headers'] = headers
+    res['columns'] = headers
     return res
 
 @app.get("/get-kpi-data")
@@ -42,12 +42,44 @@ def get_kpi_data():
     res = {
         "totals" : [
             {
-                'Title': 'Total Purchase',
-                'Total': 1000,
+                'title': 'Purchase',
+                'total': 1000,
+                'data': [
+                    { "time": '2024-01-01', "value": 120 },
+                    { "time": '2024-01-02', "value": 130 },
+                    { "time": '2024-01-03', "value": 125 },
+                    { "time": '2024-01-04', "value": 140 },
+                ]
             },
             {
-                'Title': 'Total Cost',
-                'Total': 9000
+                'title': 'Cost',
+                'total': 9000,
+                'data': [
+                    { "time": '2024-01-01', "value": 830 },
+                    { "time": '2024-01-02', "value": 430 },
+                    { "time": '2024-01-03', "value": 125 },
+                    { "time": '2024-01-04', "value": 740 },
+                ]
+            },
+            {
+                'title': 'Revenue',
+                'total': 900000000,
+                'data': [
+                    { "time": '2024-01-01', "value": 830000 },
+                    { "time": '2024-01-02', "value": 430000 },
+                    { "time": '2024-01-03', "value": 125 },
+                    { "time": '2024-01-04', "value": 740000 },
+                ]
+            },
+            {
+                'title': 'Revenue',
+                'total': 900000000,
+                'data': [
+                    { "time": '2024-01-01', "value": 830000 },
+                    { "time": '2024-01-02', "value": 430000 },
+                    { "time": '2024-01-03', "value": 125 },
+                    { "time": '2024-01-04', "value": 740000 },
+                ]
             }
         ]
     }

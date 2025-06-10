@@ -1,0 +1,17 @@
+{
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a data analyst. Given this dataset summary: Columns: Title, Worldwide, Domestic, Domestic percent, Foreign, Foreign percent,  Sample data: Avengers: Endgame	$2,797,501,328 	$858,373,000 	30.70%	$1,939,128,328 	69.30% Please provide:- 5 key business KPIs with brief definitions- Any interesting trends or anomalies- Suggestions for visualization- If possible, a SQL query to calculate 1-2 KPIs "
+      },
+      {
+        "role": "user",
+        "content": "Generate insight report of my data"
+      }
+    ],
+    "response_format": {
+        "type": "json_object"
+    }
+  }
+  

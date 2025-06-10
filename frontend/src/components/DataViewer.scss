@@ -1,0 +1,27 @@
+.data-viewer {
+    box-sizing: border-box;
+    table {
+        border: 1px solid gray;
+        width: 100%;
+        min-width: 800px;
+        border-collapse: collapse; 
+        tbody {
+            border-bottom: 1px solid gray;
+        }
+        
+        th {
+            padding: 2px 4px;
+            border-bottom: 1px solid gray;
+            border-right: 1px solid gray;
+        }
+        
+        td {
+            text-align: center;
+
+            div {
+                display: inline-block;
+                text-align: left;
+            }
+        }
+    }
+}
