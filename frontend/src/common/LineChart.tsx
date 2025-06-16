@@ -48,7 +48,6 @@ export const ChartComponent = props => {
             window.addEventListener('resize', handleResize);
 
             return () => {
-                console.log('effect')
                 window.removeEventListener('resize', handleResize);
 
                 chart.remove();

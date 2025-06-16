@@ -23,7 +23,6 @@ export async function fetchKpiData(files: FileList): Promise<any> {
         }
     
         const data = await response.json();
-        console.log(data)
         return data;
       } catch (error) {
         console.error('Failed to fetch CSV analysis:', error);

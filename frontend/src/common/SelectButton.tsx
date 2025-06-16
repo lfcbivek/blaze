@@ -14,9 +14,8 @@ import { ChevronDown } from "lucide-react";
 import './SelectButton.scss';
 
 export function SelectScrollable(props:object) {
-  const {data, column} = props;
+  const {data, column, label} = props;
   const dropdownOptions = data.map(d=>d['kpi_name']);
-  console.log(dropdownOptions)
   const onDropdownChange = (value:string, key:number) => {
     const newIdx = dropdownOptions.indexOf(value);
     props.handleDropdownChange(column, newIdx);
@@ -26,7 +25,7 @@ export function SelectScrollable(props:object) {
   return (
     <Select className="select-button" onValueChange={onDropdownChange}>
       <SelectTrigger className="w-[120px] cursor-pointer select-trigger [&_svg[data-select-arrow]]:hidden border border-gray-400 bg-gray mr-5 text-black [&[data-placeholder]]:text-black ">
-        <SelectValue placeholder={dropdownOptions[0]}/>
+        <SelectValue placeholder={label}/>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup className="select-group cursor-pointer">

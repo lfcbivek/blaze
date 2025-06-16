@@ -53,13 +53,11 @@ export default function DashboardCards(props: DashboardCardsProps) {
     };
 
     const handleDropdownChange = (col:string, newIdx:number) => {
-        console.log("handleDropdownChange")
         setCardIndex({
             ...cardIndex,
             [col]: newIdx
         })
     }
-    console.log(cardIndex)
     const tempData = [
         { time: '2024-01-01', value: 120 },
         { time: '2024-01-02', value: 130 },
@@ -101,6 +99,7 @@ export default function DashboardCards(props: DashboardCardsProps) {
                                             data={kpi[column]}
                                             column={column}
                                             handleDropdownChange={handleDropdownChange}
+                                            label={kpi[column][cardIndex[column]]['kpi_name']}
                                         />
                                     </div>
                                 </div>        
