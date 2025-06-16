@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState} from 'react';
 import {
     createColumnHelper,
     flexRender,
     getCoreRowModel,
     useReactTable,
+    getPaginationRowModel
   } from '@tanstack/react-table';
+import { Button } from "@/components/ui/button"
 
 import './DataViewer.scss';
     
@@ -23,12 +25,21 @@ const generateColumns = (data: any[]) => {
 
 export default function DataViewer(props) {
     const data = props.data;
+    const [pagination, setPagination] = useState({
+        pageIndex: 0,
+        pageSize: 200
+    })
 
     const columns = generateColumns(data);
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        onPaginationChange: setPagination,
+        state: {
+            pagination
+        }
       });
 
         
@@ -65,6 +76,44 @@ export default function DataViewer(props) {
                         ))}
                     </tbody>
                 </table>
+                <div className='pagination-buttons'>
+                    <Button
+                        onClick={() => table.firstPage()}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        {'<<'}
+                    </Button>
+                    <Button
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        {'<'}
+                    </Button>
+                    <Button
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        {'>'}
+                    </Button>
+                    <Button
+                        onClick={() => table.lastPage()}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        {'>>'}
+                    </Button>
+                    <select
+                    value={table.getState().pagination.pageSize}
+                    onChange={e => {
+                        table.setPageSize(Number(e.target.value))
+                    }}
+                    >
+                        {[10, 20, 30, 40, 50].map(pageSize => (
+                            <option key={pageSize} value={pageSize}>
+                            {pageSize}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
         </div>
     )

@@ -1,12 +1,16 @@
 .dashboard-cards {
-    margin-top: 20px;
-    display: flex;
-    gap: 20px;
-    
-    .card {
+    button {
+        cursor: pointer;
+    }
+    .cards {
+        margin-top: 20px;
         padding-top: 10px;
-        // border-color: #540CF9;
-        border-color: gray;
+        display: flex;
+        flex-direction: row;
+        gap: 25px;
+    
+    
+        
         .card-title {
             display: flex;
             flex-direction: row;

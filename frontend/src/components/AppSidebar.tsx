@@ -1,4 +1,4 @@
-import { FileChartColumnIncreasing, Database } from "lucide-react";
+import { FileChartColumnIncreasing, Database, Presentation, Notebook } from "lucide-react";
 
 import {
   Sidebar,
@@ -25,6 +25,16 @@ const items = [
     url: "/data",
     icon: Database,
   },
+  {
+    title: "Generate PPT",
+    url: "/generate/ppt",
+    icon: Presentation,
+  },
+  {
+    title: "Generate Report",
+    url: '/generate/report',
+    icon: Notebook,
+  }
 ]
 
 export function AppSidebar() {
@@ -32,8 +42,8 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupLabel>Blaze</SidebarGroupLabel>
+          <SidebarGroupContent className="mt-20">
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>

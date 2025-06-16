@@ -1,4 +1,8 @@
-.select-trigger svg[data-select-arrow] {
-    color: white !important;
-    fill: white !important;
-  }
+.select-button {
+    .select-group {
+        .select-item {
+            cursor: pointer;
+            border-color: gray;
+        }
+    }
+}

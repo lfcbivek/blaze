@@ -8,6 +8,7 @@ export const ANALYZE_URL = BASE_URL+"/analyze-file";
 
 export type KpiType = {
     totals: any[];
+    kpi: any[];
 };
 
 export type AppStoreType = {
@@ -15,6 +16,8 @@ export type AppStoreType = {
     setFile: (file: File) => void,
     kpiData: KpiType[];
     setKpiData: (data: KpiType[]) => void;
+    lineChartData: any;
+    setLineChartData: (data: any) => void;
 };
 
 export type DataPoint = {

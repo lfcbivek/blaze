@@ -1,0 +1,12 @@
+.dashboard-page {
+    .visualization {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    }
+    .data-summary {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    }
+}

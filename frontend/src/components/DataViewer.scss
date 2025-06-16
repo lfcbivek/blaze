@@ -24,4 +24,12 @@
             }
         }
     }
+    .pagination-buttons {
+        align-items: center;
+        padding-top: 10px;
+        Button {
+            background-color: #540CF9;
+            margin-right: 2px;
+        }
+    }
 }

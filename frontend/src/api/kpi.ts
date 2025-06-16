@@ -5,13 +5,11 @@ export async function fetchKpis() {
     const response = await fetch(KPI_URL);
     if (!response.ok) throw new Error('Failed to fetch users');
     const data = response.json()
-    console.log(data);
     return data;
 }
 
-export async function fetchFileAnalyzer(files: FileList): Promise<any> {
+export async function fetchKpiData(files: FileList): Promise<any> {
     const formData = new FormData();
-    console.log(files)
     formData.append('file', files[0]);
 
     try {
@@ -25,6 +23,7 @@ export async function fetchFileAnalyzer(files: FileList): Promise<any> {
         }
     
         const data = await response.json();
+        console.log(data)
         return data;
       } catch (error) {
         console.error('Failed to fetch CSV analysis:', error);

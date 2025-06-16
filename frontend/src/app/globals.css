@@ -49,6 +49,7 @@
   --foreground: #1a1a1a;
   --card: #f9f9f9f9;
   --card-foreground: #1a1a1a;
+  --card-border-color: gray;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
@@ -76,6 +77,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.2 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+}
+.card {
+  border: 1px solid var(--card-border-color);
+  border-radius: 8px;
+  padding: 1rem;
 }
 
 .dark {

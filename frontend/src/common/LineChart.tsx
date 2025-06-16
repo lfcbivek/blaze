@@ -27,17 +27,17 @@ export const ChartComponent = props => {
                     background: { type: ColorType.Solid, color: backgroundColor },
                     textColor,
                 },
-                width: 150,
-                height: 80,
+                width: 700,
+                height: 300,
                 rightPriceScale: {
-                    visible: false,
+                    visible: true,
                 },
                 timeScale: {
-                    visible: false,
+                    visible: true,
                 },
                 grid: {
-                    vertLines: { visible: false },
-                    horzLines: { visible: false },
+                    vertLines: { visible: true },
+                    horzLines: { visible: true },
                 },
             });
             chart.timeScale().fitContent();

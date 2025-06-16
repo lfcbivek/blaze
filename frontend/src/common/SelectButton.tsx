@@ -13,18 +13,31 @@ import { ChevronDown } from "lucide-react";
 
 import './SelectButton.scss';
 
-export function SelectScrollable() {
+export function SelectScrollable(props:object) {
+  const {data, column} = props;
+  const dropdownOptions = data.map(d=>d['kpi_name']);
+  console.log(dropdownOptions)
+  const onDropdownChange = (value:string, key:number) => {
+    const newIdx = dropdownOptions.indexOf(value);
+    props.handleDropdownChange(column, newIdx);
+
+  }
+
   return (
-    <Select className="select-button">
-      <SelectTrigger className="w-[100px] cursor-pointer select-trigger [&_svg[data-select-arrow]]:hidden border border-violet-400 bg-violet-400 mr-5 text-white [&[data-placeholder]]:text-white ">
-        <SelectValue placeholder="Total"/>
+    <Select className="select-button" onValueChange={onDropdownChange}>
+      <SelectTrigger className="w-[120px] cursor-pointer select-trigger [&_svg[data-select-arrow]]:hidden border border-gray-400 bg-gray mr-5 text-black [&[data-placeholder]]:text-black ">
+        <SelectValue placeholder={dropdownOptions[0]}/>
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          <SelectLabel >Purchase</SelectLabel>
-          <SelectItem value="total">Total</SelectItem>
-          <SelectItem value="mean">Mean</SelectItem>
-          <SelectItem value="top-5">Top 5</SelectItem>
+        <SelectGroup className="select-group cursor-pointer">
+          <SelectLabel >{column}</SelectLabel>
+          <div className="select-item">
+            {
+              dropdownOptions.map( (option, idx) => (
+                <SelectItem key={idx} value={option}>{option}</SelectItem>
+              ))
+            }
+          </div>
         </SelectGroup>
       </SelectContent>
     </Select>

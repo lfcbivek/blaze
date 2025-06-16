@@ -1,0 +1,102 @@
+{
+    "columns": [
+        "Title",
+        "Worldwide",
+        "Domestic",
+        "Domestic percent",
+        "Foreign",
+        "Foreign percent"
+    ],
+    "kpi": [
+        {
+            "column": "Title",
+            "kpi_name": "Total Movie Count",
+            "pandas_formula": "df['Title'].count()"
+        },
+        {
+            "column": "Title",
+            "kpi_name": "Unique Movie Count",
+            "pandas_formula": "df['Title'].nunique()"
+        },
+        {
+            "column": "Title",
+            "kpi_name": "Most Frequent Movie",
+            "pandas_formula": "df['Title'].mode()[0]"
+        },
+        {
+            "column": "Worldwide",
+            "kpi_name": "Total Worldwide Revenue",
+            "pandas_formula": "df['Worldwide'].sum()"
+        },
+        {
+            "column": "Worldwide",
+            "kpi_name": "Average Worldwide Revenue",
+            "pandas_formula": "df['Worldwide'].mean()"
+        },
+        {
+            "column": "Worldwide",
+            "kpi_name": "Maximum Worldwide Revenue",
+            "pandas_formula": "df['Worldwide'].max()"
+        },
+        {
+            "column": "Domestic",
+            "kpi_name": "Total Domestic Revenue",
+            "pandas_formula": "df['Domestic'].sum()"
+        },
+        {
+            "column": "Domestic",
+            "kpi_name": "Average Domestic Revenue",
+            "pandas_formula": "df['Domestic'].mean()"
+        },
+        {
+            "column": "Domestic",
+            "kpi_name": "Median Domestic Revenue",
+            "pandas_formula": "df['Domestic'].median()"
+        },
+        {
+            "column": "Domestic percent",
+            "kpi_name": "Average Domestic Percentage",
+            "pandas_formula": "df['Domestic percent'].mean()"
+        },
+        {
+            "column": "Domestic percent",
+            "kpi_name": "Maximum Domestic Percentage",
+            "pandas_formula": "df['Domestic percent'].max()"
+        },
+        {
+            "column": "Domestic percent",
+            "kpi_name": "Minimum Domestic Percentage",
+            "pandas_formula": "df['Domestic percent'].min()"
+        },
+        {
+            "column": "Foreign",
+            "kpi_name": "Total Foreign Revenue",
+            "pandas_formula": "df['Foreign'].sum()"
+        },
+        {
+            "column": "Foreign",
+            "kpi_name": "Average Foreign Revenue",
+            "pandas_formula": "df['Foreign'].mean()"
+        },
+        {
+            "column": "Foreign",
+            "kpi_name": "Standard Deviation Foreign Revenue",
+            "pandas_formula": "df['Foreign'].std()"
+        },
+        {
+            "column": "Foreign percent",
+            "kpi_name": "Average Foreign Percentage",
+            "pandas_formula": "df['Foreign percent'].mean()"
+        },
+        {
+            "column": "Foreign percent",
+            "kpi_name": "Maximum Foreign Percentage",
+            "pandas_formula": "df['Foreign percent'].max()"
+        },
+        {
+            "column": "Foreign percent",
+            "kpi_name": "Minimum Foreign Percentage",
+            "pandas_formula": "df['Foreign percent'].min()"
+        }
+    ]
+}
