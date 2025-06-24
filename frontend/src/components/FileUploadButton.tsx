@@ -18,23 +18,36 @@ import { useLoaderStore } from "@/store/loaderStore";
 import { fetchKpiData, fetchKpis } from "@/api/kpi";
 import { useAppStore } from '@/store/appStore';
 
+import Papa from 'papaparse';
+
 export default function FileUploadButton() {
     const router = useRouter();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { showLoader, hideLoader } = useLoaderStore();
     const [dragging, setDragging] = useState(false);
-    const { setKpiData, setFile, setLineChartData } = useAppStore();
+    const { setKpiData, setFile, setLineChartData, setRawData } = useAppStore();
     
     const onButtonClick = () => {
         fileInputRef.current?.click();
     };
+
+    const getRawData = (file: File) => {
+        Papa.parse(file, {
+            header: true, // converts rows to objects using the first row as keys
+            skipEmptyLines: true,
+            complete: function (results: object) {
+              setRawData(results.data);
+            },
+          });
+    }
 
     const onFileChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files && files.length > 0) {
             showLoader();
             // TODO: handle files here, e.g., upload or process
+            getRawData(files[0])
             const analyzedData = await fetchKpiData(files);
             const response = await fetchKpis();
 

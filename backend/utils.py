@@ -13,6 +13,8 @@ SAFE_FORMULAS = {
     'min': lambda df, col: clean_column_for_numeric(df[col]).min()
 }
 
+SUPPORTED_CHARTS = ['line_chart']
+
 def extract_tool_data_as_json(message):
     """
     Extract tool data from Claude's response and return as JSON string

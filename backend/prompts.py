@@ -1,28 +1,42 @@
 
-from utils import SAFE_FORMULAS
+from utils import SAFE_FORMULAS, SUPPORTED_CHARTS
 CLAUDE_OUTPUT_FORMAT = """
-Expected output format:
-{
-    "columns": ["Title", "Worldwide", "Domestic", "Domestic percent", "Foreign", "Foreign_percent"],
-    "kpi": [
-        {
-            "column": "Worldwide",
-            "kpi_name": "Total Revenue",
-            "operation_name": "sum",
-            "prefix_symbol": "$",
-            "suffix_symbol": ""
-        },
-        {
-            "column": "Domestic percent",
-            "kpi_name": "Average Domestic Share",
-            "operation_name": "mean",
-            "prefix_symbol": "",
-            "suffix_symbol": "%"
-        },
-        // ... more KPI objects
-    ]
-}
-"""
+    Expected output format:
+    {
+        "columns": ["Title", "Worldwide", "Domestic", "Domestic percent", "Foreign", "Foreign_percent", "Date"],
+        "kpi": [
+            {
+                "column": "Worldwide",
+                "kpi_name": "Total Revenue",
+                "operation_name": "sum",
+                "prefix_symbol": "$",
+                "suffix_symbol": ""
+            },
+            {
+                "column": "Domestic percent",
+                "kpi_name": "Average Domestic Share",
+                "operation_name": "mean",
+                "prefix_symbol": "",
+                "suffix_symbol": "%"
+            },
+            // ... more KPI objects
+        ],
+        "visualization": [
+            {
+                "name": "Bar Chart",
+                "title": "Bar Chart comparing domestic and foreign revenue"
+                "time": "Date",
+                "value": "Foreign"
+            },
+            {
+                "name": "Line Chart",
+                "title": "Line Chart showing worldwide collection each day"
+                "time": "Date",
+                "value": "Worldwide"
+            }
+        ]
+    }
+    """
 
 tools = [
     {
@@ -79,9 +93,23 @@ tools = [
                         },
                         "required": ["column", "kpi_name", "operation_name","prefix_symbol", "suffix_symbol"]
                     }
+                },
+                "visualization": {
+                    "type": "array",
+                    "description": "Suggested charts based on the data and columns among the supported charts by the app.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string", "description": "Chart name"},
+                            "title": {"type": "string", "description": "Title for the chart"},
+                            "time": {"type": "string", "description": "X-axis column for the chart usually time data"},
+                            "value": {"type": "string", "description": "Y-axis column to be used for the chart"},
+                        },
+                        "required": ["name", "column1", "column2", "title"]
+                    }
                 }
             },
-            "required": ["columns", "kpi"]
+            "required": ["columns", "kpi", "visualization"]
         }
     }
 ]
@@ -92,6 +120,7 @@ def generate_claude_prompt(columns, rows):
     CLAUDE_ANALYST_PROMPT = f'''
         You are a data analyst. Always respond with only valid JSON. Given a dataset with columns {columns} and the first 5 rows of the data {rows} .
         Please provide: 3 key KPIs for each column along with the operation to perform. The supported operations are {SUPPORTED_NUMERIC_OPERATIONS}.
+        Also, provide a max of 3 visualization options possible based on the columns and data. The supported visualization charts are {SUPPORTED_CHARTS}
         Output format reference: {CLAUDE_OUTPUT_FORMAT}
 
     '''

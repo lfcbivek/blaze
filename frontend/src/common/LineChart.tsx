@@ -13,6 +13,7 @@ export const ChartComponent = props => {
             areaBottomColor= 'rgba(149, 117, 205, 0.05)',
         } = {},
     } = props;
+    console.log("chart data")
     console.log(data)
     const chartContainerRef = useRef();
 

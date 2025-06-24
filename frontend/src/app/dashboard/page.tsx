@@ -12,7 +12,12 @@ import { useAppStore } from "@/store/appStore";
 
 import './page.scss';
 export default function DashboardPage() {
-    const { kpiData, file, lineChartData } = useAppStore();
+    const { kpiData, file, lineChartData, rawData } = useAppStore();
+    const visualizationData = kpiData["visualization"];
+    console.log('viz ');
+    console.log(visualizationData)
+    console.log("raw data")
+    console.log(rawData);
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -25,7 +30,8 @@ export default function DashboardPage() {
                     </div>
                     <div className="visualization mt-10">
                         <VisuzalizationContainer 
-                            data={lineChartData}
+                            data={rawData}
+                            visualization={visualizationData}
                         />
                         <KpiSummary />
                     </div>

@@ -9,27 +9,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronDown } from "lucide-react";
 
 import './SelectButton.scss';
 
 export function SelectScrollable(props:object) {
-  const {data, column, label} = props;
-  const dropdownOptions = data.map(d=>d['kpi_name']);
-  const onDropdownChange = (value:string, key:number) => {
+  const {chartLabel, selectedTitle, dropdownOptions, width} = props;
+  const buttonWidth = width ? width: '120px';
+  const onDropdownChange = (value:string) => {
     const newIdx = dropdownOptions.indexOf(value);
-    props.handleDropdownChange(column, newIdx);
+    props.handleDropdownChange(chartLabel, newIdx);
 
   }
 
   return (
     <Select className="select-button" onValueChange={onDropdownChange}>
-      <SelectTrigger className="w-[120px] cursor-pointer select-trigger [&_svg[data-select-arrow]]:hidden border border-gray-400 bg-gray mr-5 text-black [&[data-placeholder]]:text-black ">
-        <SelectValue placeholder={label}/>
+      <SelectTrigger className={`w-${buttonWidth} cursor-pointer select-trigger [&_svg[data-select-arrow]]:hidden border border-gray-400 bg-gray mr-5 text-black [&[data-placeholder]]:text-black `}>
+        <SelectValue placeholder={selectedTitle}/>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup className="select-group cursor-pointer">
-          <SelectLabel >{column}</SelectLabel>
+          <SelectLabel >{chartLabel}</SelectLabel>
           <div className="select-item">
             {
               dropdownOptions.map( (option, idx) => (

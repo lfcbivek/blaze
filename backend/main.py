@@ -48,9 +48,11 @@ async def get_csv_headers(file: UploadFile= File(...)):
             non_numeric_cols.remove(date_column)
     claude_message_prompt = generate_claude_prompt(headers, df.head())
     claude_response = claude_api(claude_message_prompt)
+    print(claude_response)
 
     numeric_res = get_kpi_for_numeric_data(df, numeric_cols, claude_response["kpi"])
     res['kpi'] = numeric_res
+    res['visualization'] = claude_response['visualization']
     # res["kpi"] = numeric_res
     # result = arrange_kpi_by_column(claude_response, df)
     return res

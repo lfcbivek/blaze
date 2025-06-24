@@ -36,6 +36,11 @@ export default function DashboardCards(props: DashboardCardsProps) {
 
     const scrollRef = useRef(null);
 
+    const dropdownOptions = (column:number) => {
+        console.log("dropdown");
+        return kpi[column].map(d=>d['kpi_name'])
+    };
+
     const scroll = (direction:string) => {
         if (direction === 'left') {
             if (cardStartIdx === 0) return;
@@ -58,12 +63,6 @@ export default function DashboardCards(props: DashboardCardsProps) {
             [col]: newIdx
         })
     }
-    const tempData = [
-        { time: '2024-01-01', value: 120 },
-        { time: '2024-01-02', value: 130 },
-        { time: '2024-01-03', value: 125 },
-        { time: '2024-01-04', value: 140 },
-    ];
     return (
         <div className="relative w-full dashboard-cards">
             <button
@@ -96,10 +95,11 @@ export default function DashboardCards(props: DashboardCardsProps) {
                                         <CardTitle className="font-normal">{ column }</CardTitle>
                                     <div className="pt-2">
                                         <SelectScrollable 
-                                            data={kpi[column]}
-                                            column={column}
+                                            width="120px"
+                                            dropdownOptions={dropdownOptions(column)}
+                                            chartLabel={column}
                                             handleDropdownChange={handleDropdownChange}
-                                            label={kpi[column][cardIndex[column]]['kpi_name']}
+                                            selectedTitle={kpi[column][cardIndex[column]]['kpi_name']}
                                         />
                                     </div>
                                 </div>        
